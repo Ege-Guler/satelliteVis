@@ -15,12 +15,18 @@ class_colors = {
 }
 
 
-def pre_process_image(im_path):
-    im = cv2.imread(im_path)
-    im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+def pre_process_image(image:bytes):
+
+    if image is None:
+        raise ValueError("Failed to decode image.")
+    
+    file_bytes = np.fromstring(image, np.uint8)
+    image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     transform = get_augmentations()
-    augmented = transform(image=im)
+    augmented = transform(image=image)
     image_tensor = augmented["image"]
 
     if image_tensor.ndim == 3:

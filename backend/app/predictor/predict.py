@@ -8,9 +8,9 @@ from app.models.model_loader import load_model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def predict_image(model_path, classes, im_path):
+def predict_image(model_path, classes, image):
 
-    im = pre_process_image(im_path=im_path)
+    im = pre_process_image(image)
 
     model = load_model(model_path=model_path, classes=classes)
     with torch.no_grad():
