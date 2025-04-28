@@ -172,3 +172,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+backend/test_images/tile_1_17.png
+backend/test_images/tile_2_6.png
+backend/test_images/tile_3_2.png
