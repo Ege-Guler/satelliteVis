@@ -45,16 +45,3 @@ def colorize_mask(mask, class_colors):
         color_mask[mask == class_idx] = color
 
     return color_mask
-
-def decode_segmentation(mask):
-    return torch.argmax(mask, dim=0).cpu().numpy()
-
-
-def colorize_mask(mask, class_colors):
-    h, w = mask.shape
-    color_mask = np.zeros((h, w, 3), dtype=np.uint8)
-
-    for class_idx, color in class_colors.items():
-        color_mask[mask == class_idx] = color
-
-    return color_mask
