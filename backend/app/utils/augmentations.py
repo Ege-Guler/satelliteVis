@@ -9,3 +9,16 @@ def get_augmentations():
         A.Normalize(mean=mean, std=std),
         ToTensorV2()
     ])
+
+def get_augmentations_padded(h, w):
+        return A.Compose([
+              
+        A.PadIfNeeded(
+            min_height=h,
+            min_width=w,
+            fill=(0,0,0),          # black mask
+            fill_mask=6            # ignored class
+        ),
+        A.Normalize(mean=mean, std=std),
+        ToTensorV2()
+    ])

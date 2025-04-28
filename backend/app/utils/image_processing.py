@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import torch
 
-from app.utils.augmentations import get_augmentations
+from app.utils.augmentations import get_augmentations, get_augmentations_padded
 
 class_colors = {
     0: (0, 255, 255), 
@@ -15,6 +15,22 @@ class_colors = {
 }
 
 
+"""
+Each image must be divisble by 16.
+"""
+def is_div_by_16(image):
+    h, w, _ = image.shape
+
+
+    if not ((h % 16) and (w % 16)):
+        new_h = ((h // 16) + 1) * 16
+        new_w = ((w // 16) + 1) * 16
+
+        return False, new_h, new_w
+    
+    return True, new_h, new_w
+
+
 def pre_process_image(image:bytes):
 
     if image is None:
@@ -25,7 +41,17 @@ def pre_process_image(image:bytes):
     
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-    transform = get_augmentations()
+    transform = []
+
+    result, height, weight = is_div_by_16(image)
+
+    if(result):
+        transform = get_augmentations()
+    else:
+        transform = get_augmentations_padded(h=height, w=weight)
+
+
+
     augmented = transform(image=image)
     image_tensor = augmented["image"]
 
