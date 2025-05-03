@@ -1,10 +1,13 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-upload-form',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule],
   templateUrl: './upload-form.component.html',
   styleUrl: './upload-form.component.scss'
 })
@@ -14,32 +17,36 @@ export class UploadFormComponent {
   imageUrl = signal<string | null>(null);
   isDragOver = signal<boolean>(false);
 
+  onFileInput(event: Event | DragEvent) {
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+    if (event instanceof DragEvent) event.preventDefault();
+    let file: File | undefined;
 
-    if(file) this.processFile(file);
+    if ('dataTransfer' in event) {
+      file = event.dataTransfer?.files?.[0];
+      this.isDragOver.set(false);
+
+    } else {
+      const input = event.target as HTMLInputElement;
+      file = input.files?.[0];
+    }
+    if (!file) return;
+
+    this.processFile(file);
   }
 
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragOver.set(false);
-    const file = event.dataTransfer?.files?.[0];
-    if(file) this.processFile(file);
-  }
 
-  onDragOver(event: DragEvent): void{
+  onDragOver(event: DragEvent): void {
     event.preventDefault();
     this.isDragOver.set(true);
   }
 
-  onDragLeave(){
+  onDragLeave() {
     this.isDragOver.set(false);
   }
 
 
-  processFile(file: File): void{
+  processFile(file: File): void {
     this.imageFile.set(file);
     this.imageUrl.set(URL.createObjectURL(file));
   }

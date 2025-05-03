@@ -6,15 +6,20 @@ $upload-height: 270px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: $upload-width;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: $upload-width;
   height: auto;
   margin: 0 auto;
 }
 
 .upload-box {
-  width: $upload-width;
-  height: $upload-height;
-  border: 2px dashed #ccc;
+
+  padding: 5%;
+  max-width: $upload-width;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 5px dashed #e01919;
   border-radius: 8px;
   background-color: #f9f9f9;
   display: flex;
@@ -22,11 +27,30 @@ $upload-height: 270px;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition: border-color 0.2s, background-color 0.4s;
 
   &.dragover {
     background-color: #eff6ff;
     border-color: #3b82f6;
+  }
+
+  &.has-image {
+    border-color: green;
+  }
+
+}
+
+.overlay-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+  background-color: #b0b4b9;
+  color: #747474;
+
+  &:hover {
+    animation: shake 0.8s ease-in-out;
+
   }
 }
 
@@ -44,6 +68,10 @@ $upload-height: 270px;
   input[type="file"] {
     display: none;
   }
+
+  &.dragover {
+    animation: shake 0.4s ease-in-out;
+  }
 }
 
 .preview-image {
@@ -54,33 +82,30 @@ $upload-height: 270px;
   display: block;
 }
 
-.remove-button-container {
-  margin-top: 8px;
-
-  .remove-btn {
-    background-color: #ef4444;
-    color: white;
-    padding: 6px 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: #dc2626;
-      animation: shake 0.4s ease-in-out;
-    }
-  }
-}
 
 
 @keyframes shake {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-4px); }
-    40% { transform: translateX(4px); }
-    60% { transform: translateX(-3px); }
-    80% { transform: translateX(3px); }
-    100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
   }
-  
+
+  20% {
+    transform: translateX(-4px);
+  }
+
+  40% {
+    transform: translateX(4px);
+  }
+
+  60% {
+    transform: translateX(-3px);
+  }
+
+  80% {
+    transform: translateX(3px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
