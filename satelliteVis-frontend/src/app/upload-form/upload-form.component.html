@@ -1,0 +1,26 @@
+<div class="upload-wrapper">
+  
+    <div class="upload-box" 
+         [class.dragover]="isDragOver()"
+         (drop)="onDrop($event)"
+         (dragover)="onDragOver($event)"
+         (dragleave)="onDragLeave()">
+  
+      <ng-container *ngIf="!imageUrl()">
+        <label class="upload-label">
+          <span>Drag & drop an image<br>or click to select</span>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)">
+        </label>
+      </ng-container>
+  
+      <ng-container *ngIf="imageUrl()">
+        <img [src]="imageUrl()" alt="Image Preview" class="preview-image">
+      </ng-container>
+    </div>
+  
+    <div *ngIf="imageUrl()" class="remove-button-container">
+      <button (click)="removeImage()" class="remove-btn">Remove</button>
+    </div>
+  
+  </div>
+  
