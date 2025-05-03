@@ -1,0 +1,45 @@
+.mat-toolbar {
+    background-color: #a3bcd6;
+    color: #4a5568;
+}
+
+.mat-button {
+    color: #4a5568;
+}
+
+.flex-spacer {
+    flex: 1 1 auto;
+}
+
+.navbar {
+    font-size: 32px;
+    background-color: #a3bcd6;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    display: flex;
+    min-height: 64px;
+
+    a[mat-button],button[mat-button] {
+        color: inherit;
+        font-weight: 500;
+        margin-left: 1rem;
+        font-size: 20px;
+
+        &.active {
+            font-weight: bold;
+            background-color: #6b86a3c5;
+        }
+
+    }
+
+    
+}
+
+.redirect-github{
+    text-decoration: none;
+    color: #4a5568;
+}
+
+.github-icon{
+    color: #a3bcd6;
+}
