@@ -1,0 +1,11 @@
+{
+    "/api/upload": {
+      "target": "http://localhost:8000",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api/upload": "/upload"
+      }
+    }
+  }
+  
