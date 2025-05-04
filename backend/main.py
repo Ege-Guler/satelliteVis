@@ -13,7 +13,7 @@ app = FastAPI()
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 
 model_loaded = False
-model_path = "weights/resnet101_best_model_epoch_15.pth"
+model_path = "weights/best_model_epoch_15.pth"
 test_im = "test_images/606_sat.jpg"
 
 
