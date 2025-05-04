@@ -1,9 +1,11 @@
-<app-upload-form #upload exportAs="ImageUploadComponent"></app-upload-form>
+<div class="home-container">
+  <app-upload-form #upload exportAs="ImageUploadComponent" class="upload-form"></app-upload-form>
 
 
-<button mat-raised-button class="predict-btn" (click)="onPredict()">Predict</button>
+  <button mat-raised-button class="predict-btn" (click)="onPredict()">Predict</button>
 
-<div *ngIf="imagePreviewUrl()" class="output-preview">
-  <h3>Prediction Result</h3>
-  <img [src]="imagePreviewUrl()" alt="Predicted Image" class="predicted-image" />
+  <div *ngIf="imagePreviewUrl()" class="output-preview">
+    <h3>Prediction Result</h3>
+    <img [src]="imagePreviewUrl()" alt="Predicted Image" class="predicted-image" />
+  </div>
 </div>
