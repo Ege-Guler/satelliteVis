@@ -1,0 +1,25 @@
+.predict-btn{
+    color: #4a5568;
+    background-color: #a3bcd6;
+}
+
+.output-preview {
+    margin-top: 24px;
+    text-align: center;
+  
+    h3 {
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+  
+    .predicted-image {
+      width: 480px;
+      height: auto;
+      max-width: 100%;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+  }
+  
