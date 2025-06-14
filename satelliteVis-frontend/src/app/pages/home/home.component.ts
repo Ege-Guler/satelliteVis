@@ -5,11 +5,13 @@ import { UploadFormComponent } from '../../upload-form/upload-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, UploadFormComponent, MatButtonModule, MatDialogModule],
+  imports: [CommonModule, UploadFormComponent, MatButtonModule, MatDialogModule, FormsModule, MatSelectModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -20,6 +22,10 @@ export class HomeComponent {
   imagePreviewUrl = signal<string>("")
   
   error_message: string = "";
+
+  selectedModel = signal<string | null>(null);
+  models = ["15_val", "20_val", "25_val", "30_val"]
+
 
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
@@ -40,6 +46,33 @@ export class HomeComponent {
       this.imagePreviewUrl.set(url);
     });
 
+  }
+
+  onSelectModel(model: string) {
+    this.selectedModel.set(model);
+
+    if(!this.selectedModel()) {
+      this.error_message = "No Model Selected";
+      this.errorDialog();
+      return;
+    }
+
+    const payload = {
+      model_name: this.selectedModel()
+    };
+
+    console.log("Selecting model:", payload);
+
+    this.http.post('/api/select_model', payload).subscribe({
+      next: (response) => {
+        console.log("Model selected successfully:", response);
+      }
+      , error: (error) => {
+        console.error("Error selecting model:", error);
+        this.error_message = "Error selecting model";
+        this.errorDialog();
+      }
+    });
   }
 
   errorDialog(){

@@ -1,6 +1,12 @@
 <div class="home-container">
   <app-upload-form #upload exportAs="ImageUploadComponent" class="upload-form"></app-upload-form>
 
+  <mat-form-field appearance="outline" class="model-form">
+    <mat-label>Select a model</mat-label>
+    <mat-select (selectionChange)="onSelectModel($event.value)" [value]="selectedModel()">
+      <mat-option *ngFor="let model of models" [value]="model">{{ model }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <button mat-raised-button class="predict-btn" (click)="onPredict()">Predict</button>
 

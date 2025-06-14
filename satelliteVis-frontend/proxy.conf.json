@@ -1,11 +1,18 @@
 {
-    "/api/upload": {
-      "target": "http://localhost:8000",
-      "secure": false,
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/api/upload": "/upload"
-      }
+  "/api/upload": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/upload": "/upload"
+    }
+  },
+  "/api/select_model": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/select_model": "/select_model"
     }
   }
-  
+}
