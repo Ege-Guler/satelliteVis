@@ -1,20 +1,20 @@
 <div class="upload-wrapper">
 
-  <div class="upload-box" [class.dragover]="isDragOver()" [class.has-image]="imageFile()" (drop)="onFileInput($event)"
+  <div class="upload-box" [class.dragover]="isDragOver()" [class.has-image]="this.uploadService.imageFile()" (drop)="onFileInput($event)"
     (dragover)="onDragOver($event)" (dragleave)="onDragLeave()">
 
-    <ng-container *ngIf="!imageUrl()">
+    <ng-container *ngIf="!this.uploadService.imageUrl()">
       <label class="upload-label" [class.dragover]="isDragOver()">
         <span>Drag & drop an image<br>or click to select</span>
         <input type="file" accept="image/*" (change)="onFileInput($event)">
       </label>
     </ng-container>
 
-    <ng-container *ngIf="imageUrl()">
-      <img [src]="imageUrl()" alt="Image Preview" class="preview-image">
+    <ng-container *ngIf="this.uploadService.imageUrl()">
+      <img [src]="this.uploadService.imageUrl()" alt="Image Preview" class="preview-image">
     </ng-container>
 
-    <ng-container *ngIf="imageUrl()">
+    <ng-container *ngIf="this.uploadService.imageUrl()">
       <button mat-mini-fab extended matTooltip="Remove Image" color="warm" class="overlay-btn" (click)="removeImage()">
         <mat-icon>delete</mat-icon>
       </button>

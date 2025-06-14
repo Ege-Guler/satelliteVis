@@ -8,6 +8,8 @@ import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component'
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from '../../services/loading.service';
+import { UploadService } from '../../services/upload.service';
+import { effect } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +22,7 @@ export class HomeComponent {
 
   @ViewChild('upload') uploadComponent !: UploadFormComponent;
 
-  imagePreviewUrl = signal<string>("")
+  imagePreviewUrl = signal<string | null>(null)
 
   error_message: string = "";
 
@@ -28,12 +30,18 @@ export class HomeComponent {
   models = ["15_val", "20_val", "25_val", "30_val"]
 
 
-  constructor(private http: HttpClient, private dialog: MatDialog, private loadingService: LoadingService) { }
+  constructor(private http: HttpClient, private dialog: MatDialog, private loadingService: LoadingService, public uploadService: UploadService) {
+    effect(() => {
+      if (!this.uploadService.imageUrl()) {
+        this.imagePreviewUrl.set(null);
+      }
+    });
+  }
 
   onPredict() {
     this.loadingService.show();
 
-    if(this.uploadComponent.imageFile() === null){
+    if(this.uploadService.imageFile() === null){
       this.error_message = "No Input";
       this.loadingService.hide();
       this.errorDialog();

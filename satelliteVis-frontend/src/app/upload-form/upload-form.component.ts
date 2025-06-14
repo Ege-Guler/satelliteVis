@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -13,8 +14,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class UploadFormComponent {
 
-  imageFile = signal<File | null>(null);
-  imageUrl = signal<string | null>(null);
+  constructor(public uploadService: UploadService) {}
+
+
   isDragOver = signal<boolean>(false);
 
   onFileInput(event: Event | DragEvent) {
@@ -47,22 +49,20 @@ export class UploadFormComponent {
 
 
   processFile(file: File): void {
-    this.imageFile.set(file);
-    this.imageUrl.set(URL.createObjectURL(file));
+    this.uploadService.setImage(file);
   }
 
   removeImage() {
-    this.imageFile.set(null);
-    this.imageUrl.set(null);
+    this.uploadService.clearImage();
   }
 
 
   get selectedFile(): File | null {
-    return this.imageFile();
+    return this.uploadService.imageFile();
   }
 
   get previewUrl(): string | null {
-    return this.imageUrl();
+    return this.uploadService.imageUrl();
   }
 
 }
