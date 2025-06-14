@@ -1,1 +1,109 @@
-<p>about works!</p>
+<div style="font-family: 'Ubuntu Mono', monospace; padding: 2rem; line-height: 1.6;">
+  <h1>🛰️ SatImPredictor: Semantic Segmentation of Satellite Imagery</h1>
+
+  <p>
+    <strong>SatImPredictor</strong> is a lightweight, browser-based application designed to perform
+    <em>semantic segmentation</em> on satellite images. Users can upload an image and select between different model variants to generate land-cover segmentation masks. It provides a fast and interactive way to assess how well different models perform across various terrain types.
+  </p>
+
+  <h2>🧠 Model Variants</h2>
+  <p>
+    The tool features four segmentation models — each trained with different validation splits of the dataset:
+  </p>
+
+  <ul>
+    <li><code>15_val</code>: 15% validation split</li>
+    <li><code>20_val</code>: 20% validation split</li>
+    <li><code>25_val</code>: 25% validation split</li>
+    <li><code>30_val</code>: 30% validation split</li>
+  </ul>
+
+  <p>
+    Each model is based on the <strong>DeepLabV3+</strong> architecture with a <strong>ResNet-101</strong> encoder and was trained over 15 epochs. They were evaluated using key segmentation metrics:
+  </p>
+
+  <ul>
+    <li>IoU (macro)</li>
+    <li>F1 Score (macro)</li>
+    <li>Precision (macro)</li>
+    <li>Per-class IoU for Urban, Agriculture, Forest, Water, and more</li>
+  </ul>
+
+  <h3>📈 Best Model Performances</h3>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Best Epoch</th>
+        <th>IoU (macro)</th>
+        <th>F1 Score</th>
+        <th>Precision</th>
+        <th>Water IoU</th>
+        <th>Barren IoU</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>15_val</code></td>
+        <td>15</td>
+        <td><strong>0.8160</strong></td>
+        <td>0.8953</td>
+        <td>0.9030</td>
+        <td>0.8817</td>
+        <td>0.8002</td>
+      </tr>
+      <tr>
+        <td><code>20_val</code></td>
+        <td>15</td>
+        <td><strong>0.8131</strong></td>
+        <td>0.8929</td>
+        <td>0.8926</td>
+        <td>0.8956</td>
+        <td>0.7943</td>
+      </tr>
+      <tr>
+        <td><code>25_val</code></td>
+        <td>14</td>
+        <td><strong>0.8112</strong></td>
+        <td>0.8920</td>
+        <td>0.8936</td>
+        <td>0.8985</td>
+        <td>0.7832</td>
+      </tr>
+      <tr>
+        <td><code>30_val</code></td>
+        <td>11</td>
+        <td><strong>0.8039</strong></td>
+        <td>0.8872</td>
+        <td>0.8872</td>
+        <td>0.8789</td>
+        <td>0.7835</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>🔍 Observations</h3>
+  <ul>
+    <li><code>15_val</code> consistently outperformed others in macro IoU and F1 metrics.</li>
+    <li><code>25_val</code> and <code>20_val</code> showed balanced performance and stable convergence.</li>
+    <li><code>30_val</code> had strong early learning but slightly lower performance overall.</li>
+    <li><strong>Water class</strong> was segmented accurately across all models, showing the model's strength on high-contrast features.</li>
+  </ul>
+
+  <h2>🧰 Tech Stack</h2>
+  <ul>
+    <li><strong>Frontend:</strong> Angular 16 (standalone components, Signals API)</li>
+    <li><strong>UI Framework:</strong> Angular Material</li>
+    <li><strong>Model Architecture:</strong> DeepLabV3+ with ResNet-101 encoder</li>
+    <li><strong>Training Framework:</strong> PyTorch</li>
+    <li><strong>Dataset:</strong> DeepGlobe Land Cover Classification Dataset</li>
+    <li><strong>Deployment Environment:</strong> Google Colab (A100 GPU)</li>
+    <li><strong>API Communication:</strong> REST (POST endpoints for model selection and image upload)</li>
+  </ul>
+
+  <hr style="margin-top: 3rem; margin-bottom: 1rem;" />
+  <p style="text-align: center; font-style: italic; color: #888;">
+    Developed by <strong>Ege Güler</strong> — 2025
+  </p>
+</div>
