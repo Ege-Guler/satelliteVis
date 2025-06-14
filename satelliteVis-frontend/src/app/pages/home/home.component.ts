@@ -7,6 +7,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -20,20 +21,23 @@ export class HomeComponent {
   @ViewChild('upload') uploadComponent !: UploadFormComponent;
 
   imagePreviewUrl = signal<string>("")
-  
+
   error_message: string = "";
 
   selectedModel = signal<string | null>(null);
   models = ["15_val", "20_val", "25_val", "30_val"]
 
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private dialog: MatDialog, private loadingService: LoadingService) { }
 
   onPredict() {
+    this.loadingService.show();
 
     if(this.uploadComponent.imageFile() === null){
       this.error_message = "No Input";
+      this.loadingService.hide();
       this.errorDialog();
+      return;
     }
     const file = this.uploadComponent.selectedFile;
     if (!file) return;
@@ -44,6 +48,7 @@ export class HomeComponent {
     this.http.post('/api/upload', formData, { responseType: 'blob' }).subscribe(blob => {
       const url = URL.createObjectURL(blob);
       this.imagePreviewUrl.set(url);
+      this.loadingService.hide();
     });
 
   }

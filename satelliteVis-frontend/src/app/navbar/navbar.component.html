@@ -1,14 +1,23 @@
+<div class = navbar-container>
+
 <mat-toolbar color="primary" class="navbar">
-    <span class="app-title">🛰️ SatImPredictor</span>
-    <a mat-button routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a mat-button routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">About</a>
-    <span class="flex-spacer"></span>
+  <span class="app-title">🛰️ SatImPredictor</span>
+  <a mat-button routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+  <a mat-button routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">About</a>
+  <span class="flex-spacer"></span>
 
-
-    <button mat-button>
-        <mat-icon svgIcon="github" class="github-icon" ></mat-icon>
-        <a class="redirect-github" target="_blank" href="https://github.com/Ege-Guler/satelliteVis">GitHub</a>
-    </button>
-
-
+  <button mat-button>
+    <mat-icon svgIcon="github" class="github-icon"></mat-icon>
+    <a class="redirect-github" target="_blank" href="https://github.com/Ege-Guler/satelliteVis">GitHub</a>
+  </button>
 </mat-toolbar>
+
+<mat-progress-bar
+  *ngIf="loadingService.state()"
+  mode="indeterminate"
+  color="accent"
+  class="navbar-progress">
+</mat-progress-bar>
+
+</div>
+
